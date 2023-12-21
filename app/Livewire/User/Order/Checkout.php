@@ -37,20 +37,20 @@ class Checkout extends Component
     public function newOrder()
     {
         if ($this->carts->pluck('seat.status')->contains('booked')) {
-            session()->flash('error', 'One or more seats in your cart are already booked! If you already paid, please select another available seats or contact our admin.');
-            return;
+            return session()->flash('error', 'One or more seats in your cart are already booked! If you already paid, please select another available seats or contact our admin.');
         }
 
         $this->validate([
             'paymentProof' => 'required|image|max:2048',
         ]);
+
         $imagePath = $this->paymentProof->store('paymentProof', 'public');
         if ($imagePath) {
             Transaction::where('id', $this->tid)->update([
                 'payment_proof' => $imagePath,
                 'payment_status' => 'paid',
                 'status' => 'processed',
-                'updated_at' => now(),
+                'total' => $this->total,
             ]);
 
             $this->carts->each(function ($cart) {
