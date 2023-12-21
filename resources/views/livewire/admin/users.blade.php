@@ -1,7 +1,7 @@
 <div class="px-6" x-data="{ newUserModal: false, updateUserModal: false }">
     <div class="mt-6">
         <div class="flex justify-center items-center">
-            <div class="flex items-center w-full md:w-1/2 lg:w-1/3 bg-white px-3 py-4 rounded-full border">
+            <div class="flex items-center w-full md:w-1/2 lg:w-2/3 bg-white px-3 py-4 rounded-full border">
                 <i class="fa-solid fa-magnifying-glass mx-2"></i>
                 <input type="text" placeholder="Search something..." class="w-full focus:outline-none"
                     wire:model.live.debounce.1s="search" autofocus>
@@ -72,10 +72,10 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $user->email }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $user->phone }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{ \Carbon\Carbon::parse($user->created_at)->format('d-m-Y') }}</td>
+                            {{ \Carbon\Carbon::parse($user->created_at)->format('d F, Y H:i') }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-lg flex gap-x-4">
                             <button type="button" class="fa-solid fa-pen-to-square text-blue-500 hover:cursor-pointer"
-                                @click="$dispatch('admin-update-user', { id: {{ $user->id }} }); updateUserModal = true"></button>
+                                @click="$dispatch('admin-get-user', { id: {{ $user->id }} }); updateUserModal = true"></button>
                             <button type="button" wire:click="delete({{ $user->id }})"
                                 wire:confirm="Are you sure want to delete {{ $user->firstName . ' ' . $user->lastName . '' }}?"
                                 class="fa-solid fa-trash text-red-500 hover:cursor-pointer"></button>

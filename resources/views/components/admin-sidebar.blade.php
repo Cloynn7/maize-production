@@ -51,7 +51,7 @@
                     </a>
                 </li>
                 <li>
-                    <a wire:navigate href="#"
+                    <a wire:navigate href="{{ route('admin.discounts') }}"
                         class="flex items-center p-2 text-gray-100 rounded-lg hover:bg-gray-700 group
                         @if (request()->routeIs('admin.discounts')) bg-gray-700 @endif">
                         <i class="fa-solid fa-tags text-gray-400"></i>

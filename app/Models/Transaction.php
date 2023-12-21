@@ -24,6 +24,6 @@ class Transaction extends Model
 
     public function discountCode(): BelongsTo
     {
-        return $this->belongsTo(discount_code::class);
+        return $this->belongsTo(discount_code::class, 'id');
     }
 }

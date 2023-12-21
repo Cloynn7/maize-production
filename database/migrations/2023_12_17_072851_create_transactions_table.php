@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->integer('discount_code_id')->nullable()->constrainted('discount_codes');
+            $table->foreignId('discount_code_id')->nullable()->constrainted('discount_codes');
             $table->string('payment_proof')->nullable();
             $table->enum('payment_status', ['paid', 'unpaid'])->default('unpaid');
             $table->enum('status', ['processed', 'accepted', 'rejected'])->nullable();

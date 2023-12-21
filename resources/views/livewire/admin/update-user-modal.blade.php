@@ -1,5 +1,5 @@
 <div class="fixed inset-0 md:left-64 z-30 flex items-center justify-center overflow-auto bg-black bg-opacity-50"
-    x-show="updateUserModal">
+    x-cloak x-show="updateUserModal">
     <div @click.away="updateUserModal = false"
         class="w-[400px] md:w-[500px] lg:w-[600px] h-auto px-6 py-4 mx-4 md:mx-auto text-left bg-white rounded shadow-lg"
         x-transition:enter="motion-safe:ease-out duration-300" x-transition:enter-start="opacity-0 scale-90"

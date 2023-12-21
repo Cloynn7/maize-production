@@ -27,7 +27,8 @@ class Users extends Component
         return session()->flash('bannerSuccess', 'User deleted successfully!');
     }
 
-    #[On('admin-create-user', 'admin-update-user')]
+    #[On('admin-create-user')]
+    #[On('admin-update-user')]
     public function render()
     {
         return view('livewire.admin.users', [
@@ -35,6 +36,7 @@ class Users extends Component
                 ->search($this->search)
                 ->paginate(10),
             'totalUsers' => User::count()
-        ])->title('Admin - Users | ' . config('app.name'));
+            // ])->title('Admin - Users | ' . config('app.name'));
+        ]);
     }
 }
