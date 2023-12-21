@@ -42,6 +42,7 @@ class NewDiscountModal extends Component
             return session()->flash('error', 'Something went wrong!');
         }
     }
+    
     public function render()
     {
         return view('livewire.admin.new-discount-modal', [
