@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('seat')->unique();
             $table->enum('class', ['bronze', 'silver', 'gold', 'vip']);
             $table->enum('status', ['available', 'booked'])->default('available');
-            // $table->enum('class', ['regular', 'vip']);
             $table->integer('price');
             $table->timestamps();
         });

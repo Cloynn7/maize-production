@@ -17,7 +17,7 @@ class UpdateUserModal extends Component
         $this->reset();
     }
 
-    #[On('admin-update-user')]
+    #[On('admin-get-user')]
     public function getUser($id)
     {
         $this->reset();

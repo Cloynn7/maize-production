@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('offer');
             $table->integer('max_price')->nullable();
             $table->enum('type', ['flat', 'percentage']);
-            $table->timestamp('start_date');
-            $table->timestamp('expire_date');
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('expire_date')->nullable();
             $table->timestamps();
         });
     }

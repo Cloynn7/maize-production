@@ -35,6 +35,7 @@ Route::middleware('isAdmin')->group(function () {
         Route::get('/dashboard', \App\Livewire\Admin\Index::class)->name('admin.dashboard');
         Route::get('/users', \App\Livewire\Admin\Users::class)->name('admin.users');
         Route::get('/seats', \App\Livewire\Admin\Seats::class)->name('admin.seats');
+        Route::get('/discounts', \App\Livewire\Admin\Discounts::class)->name('admin.discounts');
         // Route::get('/bookings', \App\Livewire\Admin\Bookings::class)->name('admin.bookings');
     });
 });

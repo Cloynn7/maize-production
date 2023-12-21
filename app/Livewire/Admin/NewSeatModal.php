@@ -23,7 +23,13 @@ class NewSeatModal extends Component
             'class' => 'required',
             'price' => 'required|integer',
         ]);
-        dd($data);
+        if (Seat::create($data)) {
+            $this->reset();
+            $this->dispatch('admin-create-seat');
+            return session()->flash('success', 'Seat created successfully!');
+        } else {
+            return session()->flash('error', 'Something went wrong, please try again!');
+        }
     }
     public function render()
     {
