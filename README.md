@@ -1,21 +1,42 @@
 # MaizéProduction Ticketing Website
-This is my first fullstack project. This website created for the ticketing website of Drama Production XI-1 Class of the 18th Generation at Global Prestasi School, named MaizeProduction. This project took about 3 months, starts from November until January. 
-### Tech Stack
-The technology used in this project is:
 
- 1. [Laravel 10](https://laravel.com/)
- 2. [Livewire 3 (bundled with AplineJS)](https://livewire.laravel.com/)
- 3. [TailwindCSS 3.3.6](https://tailwindcss.com/)
- 4. [Sweet-alert laravel](https://github.com/realrashid/sweet-alert)
+Welcome to MaizéProduction, the ticketing website designed for Drama Production XI-1 Class of the 18th Generation at Global Prestasi School. This project represents my inaugural fullstack endeavor, spanning a three-month development period from November to January.
 
-### Feature
-In this ticketing website project, there are several features such as:
- 1. Login & Register
- 2. Admin & User Dashboard
- 3. Ordering system
-	 - Order seat
-	 - Cart
-	 - Checkout (manual checking with admin check user uploaded payment proof
-4. Simple Ticketing System
-### Suggestion
-There are many aspects that can still be developed, for example in the security section. Next, you can use Laravel Policies for a more complex security system. Don't forget to improve website performance because currently I mostly use the live type livewire model so a lot of requests are made.
+## Tech Stack
+
+The project leverages cutting-edge technologies, including:
+
+1. [Laravel 10](https://laravel.com/)
+2. [Livewire 3 (integrated with AlpineJS)](https://livewire.laravel.com/)
+3. [TailwindCSS 3.3.6](https://tailwindcss.com/)
+4. [Sweet-alert Laravel](https://github.com/realrashid/sweet-alert)
+
+## Features
+
+MaizéProduction boasts a variety of features to enhance user experience:
+
+1. **User Authentication:**
+   - Secure login and registration processes.
+
+2. **Dashboards:**
+   - Dedicated dashboards for both administrators and users.
+
+3. **Ordering System:**
+   - Seamlessly reserve seats.
+   - Convenient cart management.
+   - Manual checkout process with admin verification of user-uploaded payment proof.
+
+4. **Ticketing System:**
+   - Streamlined ticketing functionality for easy access.
+
+## Suggestions
+
+While the project is a commendable start, there are areas for potential enhancement:
+
+1. **Security Improvements:**
+   - Consider implementing Laravel Policies for a more robust security framework.
+
+2. **Performance Optimization:**
+   - Given the predominant use of the live-type Livewire model, optimizing the website's performance is crucial. Strategies such as caching, lazy loading, and database query optimization can contribute to a smoother user experience.
+
+Feel free to explore these suggestions to elevate your project further. Wishing you continued success in your development journey!
