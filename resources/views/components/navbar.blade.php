@@ -47,7 +47,8 @@
                         <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
                             <p
                                 class="px-4 py-2 mt-2 text-sm rounded-lg md:mt-0 hover:text-gray-900 focus:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                                <span class="font-semibold">{{ auth()->user()->firstName . ' ' . auth()->user()->lastName }}</span>
+                                <span
+                                    class="font-semibold">{{ auth()->user()->firstName . ' ' . auth()->user()->lastName }}</span>
                                 <span>{{ auth()->user()->email }}</span>
                             </p>
                             <hr class="my-2">
@@ -56,6 +57,12 @@
                             @if (auth()->user()->is_admin)
                                 <a class="block px-4 py-2 mt-2 text-sm bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                                     href="{{ route('admin.dashboard') }}" wire:navigate>Admin Dashboard</a>
+                            @endif
+                            @if (auth()->user()->cart()->whereHas('transaction', function ($query) {
+                                        $query->where('status', 'accepted');
+                                    })->exists())
+                                <a class="block px-4 py-2 mt-2 text-sm bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                                    href="" wire:navigate>Ticket</a>
                             @endif
                             <a class="block px-4 py-2 mt-2 text-sm bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                                 href="{{ route('logout') }}" wire:navigate>Logout</a>

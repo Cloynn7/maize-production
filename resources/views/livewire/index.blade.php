@@ -53,3 +53,23 @@
             <i class="fas fa-arrow-up mr-2"></i> Go to Top
         </button>
 </div>
+
+@push('script')
+    <script>
+        window.addEventListener('scroll', function() {
+            var goToTopBtn = document.getElementById('goToTopBtn');
+            if (window.scrollY > 20) {
+                goToTopBtn.classList.remove('hidden');
+            } else {
+                goToTopBtn.classList.add('hidden');
+            }
+        });
+
+        document.getElementById('goToTopBtn').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+@endpush

@@ -4,9 +4,10 @@
         <h2 class="text-2xl font-semibold mb-4">Your Cart</h2>
 
         <!-- Cart Items -->
-        @if ($items->isEmpty())
-            <p class="text-gray-600">No items in your cart. Please click <a href="{{ route('select-seat') }}"
-                    class="text-blue-500 underline">here</a> to order some seat.</p>
+        @if ($items == null)
+            <p class="text-gray-600">No items found. Try to go to the <a href="{{ route('cart') }}"
+                    class="text-blue-500 underline">cart</a> first then
+                checkout from there!</p>
         @else
             @foreach ($items as $item)
                 <div class="flex items-center mb-4" wire:key="{{ $item->id }}">
@@ -81,8 +82,7 @@
 
             @if ($paymentProof)
                 <div class="mt-4">
-                    <button type="button"
-                        class="w-full bg-green-500 text-white py-2 px-4 rounded"
+                    <button type="button" class="w-full bg-green-500 text-white py-2 px-4 rounded"
                         @click="showImage = !showImage" x-text="showImage ? 'Hide Image' : 'Show Image'">
                     </button>
                     <img x-show="showImage" src="{{ $paymentProof->temporaryUrl() }}" alt="Payment Proof"

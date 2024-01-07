@@ -47,6 +47,6 @@ class Index extends Component
             'latestCheckout' => $this->latestCheckout,
             'topBuyers' => $this->topBuyers,
             'latestUsers' => $this->latestUsers,
-        ])->title('Admin - Index | ' . config('app.name'));
+        ]);
     }
 }

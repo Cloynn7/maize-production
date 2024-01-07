@@ -45,7 +45,6 @@ class Cart extends Component
 
         if ($promo = DiscountCode::where('code', $this->promoCode)->first()) {
             if (now() > $promo->expire_date || now() < $promo->start_date) {
-                // session()->flash('promoError', 'Promo code expired!');
                 session()->flash('promoError', 'Invalid promo code!');
                 return;
             }
@@ -75,7 +74,6 @@ class Cart extends Component
 
                 default:
                     session()->flash('promoError', 'Invalid promo code!');
-                    # handle error for nonexistent promo type
                     break;
             }
         } else {

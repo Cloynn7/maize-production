@@ -1,106 +1,66 @@
-<div class="px-6" x-data="{ newSeatModal: false, updateUserModal: false }">
-    <div class="mt-6">
-        <div class="flex justify-center items-center">
-            <div class="flex items-center w-full md:w-1/2 lg:w-1/3 bg-white px-3 py-4 rounded-full border">
-                <i class="fa-solid fa-magnifying-glass mx-2"></i>
-                <input type="text" placeholder="Search something..." class="w-full focus:outline-none"
-                    wire:model.live.debounce.1s="search" autofocus>
-            </div>
+<div class="grid place-items-center h-screen">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:w-[950px] h-[550px] shadow-lg rounded-lg border">
+        <div class="hidden md:block max-h-[550px]">
+            <img src="https://picsum.photos/473/500" alt="Photos" class="rounded-l-lg">
         </div>
-        <div class="flex justify-between items-center mt-6 md:mx-20">
-            <div class="flex items-center gap-x-2">
-                <i class="fa-solid fa-couch text-blue-600 text-4xl"></i>
-                <div>
-                    <h1 class="text-2xl font-semibold">Seats</h1>
-                    <span class="text-sm">Total: {{ $totalSeats }}</span>
+
+        <div class="p-8 flex flex-col justify-center">
+            <form method="POST" wire:submit.prevent="register">
+                @csrf
+                <div class="text-center mb-4">
+                    <h1 class="text-3xl font-bold">{{ config('app.name') }}</h1>
+                    <h2 class="text-md text-gray-700">Create an account to get started!</h2>
                 </div>
-            </div>
-            <button @click="newSeatModal = true"
-                class="fa-solid fa-plus bg-blue-500 hover:bg-blue-600 rounded-full py-3 px-3 text-white"></button>
+
+                <!-- Register Form -->
+                <div class="flex flex-col gap-4 w-full">
+                    <div>
+                        <input type="text" id="firstName" name="firstName" placeholder="First name"
+                            class="w-full rounded-full px-5 py-2 transition duration-300 ease-in-out focus:scale-105"
+                            required wire:model='firstName'>
+                    </div>
+
+                    <div>
+                        <input type="text" id="lastName" name="lastName" placeholder="Last name"
+                            class="w-full rounded-full px-5 py-2 transition duration-300 ease-in-out focus:scale-105"
+                            required wire:model='lastName'>
+                    </div>
+
+                    <div>
+                        <input type="email" id="email" name="email" placeholder="Email address"
+                            class="w-full rounded-full px-5 py-2 transition duration-300 ease-in-out focus:scale-105"
+                            required wire:model='email'>
+                    </div>
+
+                    <div>
+                        <input type="number" id="phone" name="phone" placeholder="Phone number"
+                            class="w-full rounded-full px-5 py-2 transition duration-300 ease-in-out focus:scale-105"
+                            required wire:model='phone'>
+                    </div>
+
+                    <div>
+                        <input type="password" id="password" name="password" placeholder="Password"
+                            class="w-full rounded-full px-5 py-2 transition duration-300 ease-in-out focus:scale-105"
+                            required wire:model='password'>
+                    </div>
+
+                    <div>
+                        <input type="password" id="confirmPassword" name="confirmPassword"
+                            placeholder="Confirm password"
+                            class="w-full rounded-full px-5 py-2 transition duration-300 ease-in-out focus:scale-105"
+                            required wire:model='confirmPassword'>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit"
+                        class="transition duration-300 ease-in-out bg-blue-500 hover:bg-blue-600 hover:scale-110 w-full px-5 py-2 rounded-full text-white"><i
+                            class="fa-solid fa-arrow-right-to-bracket"></i> Register</button>
+                    <p class="text-sm mt-1">Already have an account? <a href="{{ route('login') }}"
+                            class="text-blue-500 underline">click here to
+                            login!</a></p>
+                </div>
+            </form>
         </div>
     </div>
-
-    @if (session()->has('bannerError') || session()->has('bannerSuccess'))
-        @php
-            $bannerType = session()->has('bannerError') ? 'error' : 'success';
-            $bannerMessage = session()->has('bannerError') ? session('bannerError') : session('bannerSuccess');
-        @endphp
-
-        <div
-            class="{{ $bannerType === 'error' ? 'bg-red-100 border border-red-400 text-red-700' : 'bg-green-100 border border-green-400 text-green-700' }} px-8 md:px-10 py-4 flex justify-between mt-6">
-            <div>
-                <p class="text-xl font-semibold">{{ $bannerType === 'error' ? 'Oops!' : 'Success!' }}</p>
-                <p class="text-lg">{{ $bannerMessage }}</p>
-            </div>
-            <button wire:click='$refresh'>
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    @endif
-
-    <div class="overflow-x-auto mt-6">
-        <table class="min-w-full divide-y divide-gray-200 rounded-xl overflow-hidden">
-            <thead>
-                <tr>
-                    <th
-                        class="px-6 py-3 bg-gray-300 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
-                        Seat</th>
-                    <th
-                        class="px-6 py-3 bg-gray-300 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
-                        Class</th>
-                    <th
-                        class="px-6 py-3 bg-gray-300 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
-                        Status</th>
-                    <th
-                        class="px-6 py-3 bg-gray-300 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
-                        Price</th>
-                    <th
-                        class="px-6 py-3 bg-gray-300 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
-                        Created At</th>
-                    <th
-                        class="px-6 py-3 bg-gray-300 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
-                        Action</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-                @foreach ($seats as $index => $seat)
-                    <tr wire:key="{{ $seat->id }}" class="{{ $index % 2 === 1 ? 'bg-gray-200' : 'bg-white' }}">
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500">{{ $seat->seat }}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500 uppercase">
-                            {{ $seat->class }}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            @if ($seat->status == 'available')
-                                <p
-                                    class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                    Available</p>
-                            @elseif ($seat->status == 'booked')
-                                <p
-                                    class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                    Booked</p>
-                            @endif
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $seat->price }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{ \Carbon\Carbon::parse($seat->created_at)->format('d-m-Y') }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-lg flex gap-x-4">
-                            <button type="button" class="fa-solid fa-pen-to-square text-blue-500 hover:cursor-pointer"
-                                @click="$dispatch('admin-update-user', { id: {{ $seat->id }} }); updateUserModal = true"></button>
-                            <button type="button" wire:click="delete({{ $seat->id }})"
-                                wire:confirm="Are you sure want to delete {{ $seat->seat . ' with status ' . $seat->status . '' }}?"
-                                class="fa-solid fa-trash text-red-500 hover:cursor-pointer"></button>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-
-    <div class="my-4">
-        {{ $seats->links() }}
-    </div>
-
-    {{-- <livewire:admin.new-user-modal />
-    <livewire:admin.update-user-modal /> --}}
 </div>
