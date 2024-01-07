@@ -59,7 +59,7 @@
                     </a>
                 </li>
                 <li>
-                    <a wire:navigate href="#"
+                    <a wire:navigate href="{{ route('admin.transactions') }}"
                         class="flex items-center p-2 text-gray-100 rounded-lg hover:bg-gray-700 group
                         @if (request()->routeIs('admin.transactions')) bg-gray-700 @endif">
                         <i class="fa-solid fa-credit-card text-gray-400"></i>

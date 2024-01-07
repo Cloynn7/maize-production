@@ -18,13 +18,15 @@ class discount_code extends Model
 
     public function transactions(): HasMany
     {
-        return $this->hasMany(Transaction::class, 'discount_code_id');
+        // return $this->hasMany(Transaction::class, 'discount_code_id');
+        return $this->hasMany(Transaction::class);
     }
 
-    // public function use_count()
-    // {
-    //     return $this->transactions()->count();
-    // }
+    public function transaction(): HasMany
+    {
+        // return $this->hasMany(Transaction::class, 'discount_code_id');
+        return $this->hasMany(Transaction::class);
+    }
 
     public function scopeSearch($query, $search)
     {
@@ -43,8 +45,8 @@ class discount_code extends Model
         }
     }
 
-    public function transaction(): BelongsTo
-    {
-        return $this->belongsTo(Transaction::class);
-    }
+    // public function transaction(): BelongsTo
+    // {
+    //     return $this->belongsTo(Transaction::class);
+    // }
 }

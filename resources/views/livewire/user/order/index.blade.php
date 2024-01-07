@@ -14,12 +14,13 @@
 
         <form wire:submit.prevent="addToCart">
             @csrf
-            <div class="mb-4">
+            <div class="mb-4" wire:ignore>
                 <label for="selectedSeat" class="block text-sm font-medium text-gray-700">Select Seat:</label>
                 <select name="selectedSeat" id="selectedSeat" wire:model="selectedSeat"
                     class="mt-1 p-2 border rounded-md w-full @error('selectedSeat')
-                        border border-red-500
+                         border-red-500
                     @enderror">
+                    <option value="null" selected disabled>Select a Seat</option>
                     @foreach ($seats as $seat)
                         <option value="{{ $seat->id }}">{{ $seat->seat }}</option>
                     @endforeach
@@ -32,7 +33,7 @@
             <div class="mb-4">
                 <label for="name" class="block text-sm font-medium text-gray-700">Your Name:</label>
                 <input type="text" name="name" id="name" wire:model="name"
-                    class="mt-1 p-2 border rounded-md w-full
+                    class="mt-1 p-2 rounded-md w-full
                     @error('name')
                         border border-red-500
                     @enderror"

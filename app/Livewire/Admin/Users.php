@@ -3,8 +3,8 @@
 namespace App\Livewire\Admin;
 
 use App\Models\User;
-use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 use Livewire\Attributes\Lazy;
@@ -36,7 +36,6 @@ class Users extends Component
                 ->search($this->search)
                 ->paginate(10),
             'totalUsers' => User::count()
-            // ])->title('Admin - Users | ' . config('app.name'));
         ]);
     }
 }

@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{-- ? TailwindCSS --}}
-    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
     @vite('resources/css/app.css')
 
     {{-- ? FontAwesome CDN --}}
@@ -17,14 +16,25 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
+    {{-- ? jQuery --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    {{-- <script src="../../../node_modules/jquery/dist/jquery.min.js"></script> --}}
+
+    {{-- ? Select2 CSS --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     {{-- ? SweetAlert2 CDN --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('vendor/livewire-alert/livewire-alert.js') }}"></script>
+
     <title>{{ $title ?? config('app.name') }}</title>
 </head>
 
 <body class="bg-gray-100">
     @include('sweetalert::alert')
-    @if (request()->routeIs('admin.*') || request()->routeIs('test'))
+    <x-livewire-alert::flash />
+
+    @if (request()->routeIs('admin.*'))
         @include('components.admin-sidebar')
         <div class="ml-0 md:ml-64">
             {{ $slot }}
@@ -35,24 +45,28 @@
     @endif
 </body>
 
-@if (request()->routeIs('home'))
-    <script>
-        window.addEventListener('scroll', function() {
-            var goToTopBtn = document.getElementById('goToTopBtn');
-            if (window.scrollY > 20) {
-                goToTopBtn.classList.remove('hidden');
-            } else {
-                goToTopBtn.classList.add('hidden');
-            }
-        });
+{{-- Scripts --}}
 
-        document.getElementById('goToTopBtn').addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+{{-- ? Select2 JS --}}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+@stack('script')
+
+<script>
+    $(document).ready(function() {
+        $('#selectedSeat').select2({
+            placeholder: 'Select a Seat',
+            allowClear: true,
+        }).on('change', function() {
+            var id = $(this).val();
+            Livewire.dispatch('updateSelectedSeat', {
+                id: id
             });
+            // setTimeout(() => {
+            //     $('#selectedSeat').select2();
+            // }, 1000);
         });
-    </script>
-@endif
+    });
+</script>
 
 </html>

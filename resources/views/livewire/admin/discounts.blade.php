@@ -97,12 +97,12 @@
                             {{ \Carbon\Carbon::parse($discount->created_at)->format('d F, Y H:i') }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             {{ $discount->transactions->first()?->use_count ?? 0 }}x</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-lg flex gap-x-4">
+                        <td class="px-6 py-4 whitespace-nowrap text-lg flex gap-x-4 text-center">
                             <button type="button" class="fa-solid fa-pen-to-square text-blue-500 hover:cursor-pointer"
                                 @click="$dispatch('admin-get-discount', { id: {{ $discount->id }} }); updateDiscountModal = true"></button>
-                            <button type="button" wire:click="delete({{ $discount->id }})"
+                            {{-- <button type="button" wire:click="delete({{ $discount->id }})"
                                 wire:confirm="Are you sure want to delete '{{ $discount->code }}' code?"
-                                class="fa-solid fa-trash text-red-500 hover:cursor-pointer"></button>
+                                class="fa-solid fa-trash text-red-500 hover:cursor-pointer"></button> --}}
                         </td>
                     </tr>
                 @endforeach

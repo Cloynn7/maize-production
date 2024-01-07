@@ -19,18 +19,13 @@ class Checkout extends Component
     {
         $this->reset();
         $session = session()->get('transaction');
-        // ! MENIMBANG HP YANG RAMNYA KECIL, JADI KALAU BUKA APP BANYAK MALAH KE REFRESH HALAMANNYA, SEDANGKAN PAGE INI DI DESIGN AGAR SAAT DI REFRESH AKAN BALIK KE CART, AKU MENGGUNAKAN SESSION FLASH MAKA AKU BISA MENYIMPAN (KEEP) DATA SESSIONNYA, 
-        // * ATAU MEMANG JANGAN MENGGUNAKAN FLASH SAAT MENGIRIMKAN DATA?
         if ($session) {
-            session()->keep(['transaction']);
             $this->carts = $session['carts'];
             $this->tid = $session['tid'];
             $this->subtotal = $session['subtotal'];
             $this->total = $session['total'];
             $this->promoCode = $session['promoCode'] ?? "-";
             $this->offer = $session['offer'];
-        } else {
-            return redirect()->route('cart');
         }
     }
 
