@@ -42,6 +42,8 @@ class UpdateTransactionModal extends Component
             'status' => $data['status'],
             'payment_proof' => $data['paymentProof'],
         ]);
+        $this->dispatch('admin-update-transaction');
+        return session()->flash('success', 'Transaction updated successfully!');
     }
 
     public function render()

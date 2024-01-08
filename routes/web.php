@@ -16,6 +16,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('user')->group(function () {
         Route::get('/dashboard', \App\Livewire\User\Dashboard::class)->name('user.dashboard');
+        Route::get('/ticket', \App\Livewire\User\Ticket::class)->name('user.ticket');
     });
 });
 
