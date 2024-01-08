@@ -19,8 +19,23 @@
             class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
             <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">Home</x-nav-link>
             <x-nav-link href="{{ route('select-seat') }}" :active="request()->routeIs('select-seat')">Order Seat</x-nav-link>
-            <x-nav-link href="{{ route('cart') }}" :active="request()->routeIs('cart')"><i
-                    class="fa-solid fa-cart-shopping"></i></x-nav-link>
+            <x-nav-link href="{{ route('cart') }}" :active="request()->routeIs('cart')" class="relative">
+                <i class="fa-solid fa-cart-shopping text-2xl"></i>
+                @php
+                    $cart = auth()
+                        ->user()
+                        ->cart()
+                        ->whereHas('transaction', function ($query) {
+                            $query->where('payment_status', 'unpaid');
+                        })
+                        ->orWhere('transaction_id', null)
+                        ->count();
+                @endphp
+                @if ($cart > 0)
+                    <span
+                        class="absolute top-0 right-0 mt-1 mr-2 bg-red-500 rounded-full text-white text-sm px-2">{{ $cart }}</span>
+                @endif
+            </x-nav-link>
             @auth
                 <div @click.away="open = false" class="relative" x-data="{ open: false }" x-cloak>
                     <button @click="open = !open"
@@ -53,24 +68,29 @@
                             </p>
                             <hr class="my-2">
                             <a class="block px-4 py-2 mt-2 text-sm bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                                href="{{ route('user.dashboard') }}" wire:navigate>Dashboard</a>
+                                href="{{ route('user.dashboard') }}" wire:navigate><i class="fa-solid fa-gear"></i>
+                                Dashboard</a>
                             @if (auth()->user()->is_admin)
                                 <a class="block px-4 py-2 mt-2 text-sm bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                                    href="{{ route('admin.dashboard') }}" wire:navigate>Admin Dashboard</a>
+                                    href="{{ route('admin.dashboard') }}" wire:navigate><i class="fa-solid fa-sliders"></i>
+                                    Admin Dashboard</a>
                             @endif
                             @if (auth()->user()->cart()->whereHas('transaction', function ($query) {
                                         $query->where('status', 'accepted');
                                     })->exists())
                                 <a class="block px-4 py-2 mt-2 text-sm bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                                    href="" wire:navigate>Ticket</a>
+                                    href="{{ route('user.ticket') }}" wire:navigate><i class="fa-solid fa-ticket"></i>
+                                    Ticket</a>
                             @endif
-                            <a class="block px-4 py-2 mt-2 text-sm bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                                href="{{ route('logout') }}" wire:navigate>Logout</a>
+                            <a class="block px-4 py-2 mt-2 text-sm bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 text-red-500 focus:text-red-900 hover:bg-red-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                                href="{{ route('logout') }}" wire:navigate><i
+                                    class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
                         </div>
                     </div>
                 </div>
             @else
-                <x-nav-link :href="route('login')" :active="request()->routeIs('login')">Get Started</x-nav-link>
+                <x-nav-link :href="route('login')" :active="request()->routeIs('login')"><i class="fa-solid fa-arrow-right-from-bracket"></i> Get
+                    Started</x-nav-link>
             @endauth
         </nav>
     </div>
